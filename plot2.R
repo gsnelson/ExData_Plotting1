@@ -57,7 +57,7 @@ with(
 	power_subset,
 	plot(
 		Global_active_power ~ DateTime,
-		lwd = 2 ,
+		lwd = 1,
 		type = "l",
 		bty = "o",
 		ylab = "Global Active Power (kilowatts)",
