@@ -61,7 +61,12 @@ rm(power_subset)
 
 
 ## copy plot to a PNG file
-dev.print(device = png, file = "plot1.png", width = 480, height = 480)
+dev.print(
+	device = png,
+	file = "plot1.png",
+	width = 480,
+	height = 480
+)
 
 
 ## close the PNG device
