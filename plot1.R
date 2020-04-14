@@ -1,5 +1,7 @@
 ## load required libraries
-library(data.table)
+library(readr)
+library(dplyr)
+library(tibble)
 
 
 ## instantiate variables
@@ -23,28 +25,26 @@ if (file.exists(data_loc))
 
 
 ## read household power consumption data into the power_data dataframe object
-power_data <- read.table(
-	power_data_loc,
-	header = TRUE,
-	sep = ";",
-	na.strings = "?",
-	strip.white = FALSE,
-	blank.lines.skip = TRUE,
-	check.names = TRUE
-)
-
-
-## reformat the date variable
-power_data$Date <- strptime(power_data$Date, "%d/%m/%Y")
-
-
+## convert the Date & Time variables from character class to date & time classes
 ## subset on observations occuring on 02-01-2007 & 02-02-2007
 power_subset <-
-	subset(power_data, Date == "2007-02-01" | Date == "2007-02-02")
+	read_delim(
+		power_data_loc,
+		delim = ";",
+		col_names = TRUE,
+		trim_ws = TRUE,
+		skip_empty_rows = TRUE,
+		na = "?",
+		col_types = cols(
+			Date = col_date(format = "%d/%m/%Y"),
+			Time = col_time(format = "%T")
+		)
+	) %>% filter(Date == "2007-02-01" |
+				 	Date == "2007-02-02")
 
 
 ## remove objects from memory that are no longer needed
-rm(power_data, data_loc, fileURL, power_data_loc)
+rm(data_loc, fileURL, power_data_loc)
 
 
 ## plot the Global Active Power values
