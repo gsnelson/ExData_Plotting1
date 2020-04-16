@@ -49,10 +49,12 @@ power_subset <-
 
 
 ## remove objects from memory that are no longer needed
-rm(data_loc, fileURL, power_data_loc)
+# rm(data_loc, fileURL, power_data_loc)
 
 
-## set the graphics parameter for plotting multiple graphs
+## set the graphics parameters for plotting multiple graphs to PNG graphics
+## device
+png(filename = "plot4.png", width = 480, height = 480, units = "px")
 par(mfrow = c(2, 2))
 
 
@@ -116,13 +118,10 @@ lines(
 ## Add the legend
 legend(
 	"topright",
-	legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
+	lty = 1,
 	col = c("black", "red", "blue"),
-	lty = c(1, 1, 1),
 	bty = "n",
-	x.intersp = 4,
-	y.intersp = 0.75,
-	adj = 0.25
+	legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
 )
 
 
@@ -131,23 +130,13 @@ legend(
 with(power_subset,
 	 plot(
 	 	Global_reactive_power ~ DateTime,
-	 	lwd = 0.25,
-	 	type = "h",
-	 	bty = "o"
+	 	type = "l",
+	 	lty = 1
 	 ))
 
 
 ## remove objects from memory that are no longer needed
 rm(power_subset)
-
-
-## copy plot to a PNG file
-dev.print(
-	device = png,
-	file = "plot4.png",
-	width = 480,
-	height = 480
-)
 
 
 ## close the PNG device

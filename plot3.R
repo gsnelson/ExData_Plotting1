@@ -52,6 +52,10 @@ power_subset <-
 rm(data_loc, fileURL, power_data_loc)
 
 
+## set the graphics parameter to PNG graphics device
+png(filename = "plot3.png", width = 480, height = 480, units = "px")
+
+
 ## plot the energy sub-metering No. 1 values
 with(
 	power_subset,
@@ -73,6 +77,7 @@ lines(
 	type = "l",
 	col = "red"
 )
+
 lines(
 	power_subset$Sub_metering_3 ~ power_subset$DateTime,
 	lwd = 1,
@@ -86,23 +91,12 @@ legend(
 	"topright",
 	legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
 	col = c("black", "red", "blue"),
-	lty = c(1, 1, 1),
-	x.intersp = 4,
-	adj = 0.25
+	lty = 1
 )
 
 
 ## remove objects from memory that are no longer needed
 rm(power_subset)
-
-
-## copy plot to a PNG file
-dev.print(
-	device = png,
-	file = "plot3.png",
-	width = 480,
-	height = 480
-)
 
 
 ## close the PNG device

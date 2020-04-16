@@ -52,6 +52,10 @@ power_subset <-
 rm(data_loc, fileURL, power_data_loc)
 
 
+## set the graphics parameter to PNG graphics device
+png(filename = "plot2.png", width = 480, height = 480, units = "px")
+
+
 ## plot the Global Active Power values
 with(
 	power_subset,
@@ -68,15 +72,6 @@ with(
 
 ## remove objects from memory that are no longer needed
 rm(power_subset)
-
-
-## copy plot to a PNG file
-dev.print(
-	device = png,
-	file = "plot2.png",
-	width = 480,
-	height = 480
-)
 
 
 ## close the PNG device
